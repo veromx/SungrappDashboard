@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Sungrapp\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use Sungrapp\User;
+use Sungrapp\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Sungrapp\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
