@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::all()->except(1);
 		return $users;
     }
 
@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        // Some view to create
     }
 
     /**
@@ -56,7 +56,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $user;
+        if($user->id===1){
+			abort(404);
+		}
+		return $user;
     }
 
     /**
@@ -79,6 +82,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $r, User $user)
     {
+		if($user->id===1){
+			abort(403);
+		}
+
         $user->first_name = is_null($r->first_name)?$user->first_name:$r->first_name;
         $user->last_name = is_null($r->last_name)?$user->last_name:$r->last_name;
         $user->email = is_null($r->email)?$user->email:$r->email;
@@ -94,11 +101,11 @@ class UserController extends Controller
      * @param  \Sungrapp\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        if($user->id!==1){
-			$user->delete();
+        if($id!==1){
+			User::findOrFail($id)->delete();
 		}
-		return $user;
+		return User::withTrashed()->find($id);
     }
 }
