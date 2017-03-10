@@ -83,6 +83,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $r, User $user)
     {
 		if($user->id===1){
+            // hay que hacer un return enviar un mensaje de error 
 			abort(403);
 		}
 

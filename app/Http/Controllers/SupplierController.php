@@ -35,18 +35,10 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSupplierRequest $r)
+    public function store(StoreSupplierRequest $request)
     {
-        $new_supplier = new Supplier([
-			'full_name'			=>$r->full_name,
-			'rfc'				=>$r->rfc,
-			'email'				=>$r->email,
-			'project_name'		=>$r->project_name,
-			'logo_file_name'	=>$r->logo_file_name,
-			'address_id'		=>$r->address_id
-		]);
-		$new_supplier->save();
-		return $new_supplier;
+        //
+        return Supplier::create($request->all()); 
     }
 
     /**
@@ -68,12 +60,7 @@ class SupplierController extends Controller
      */
     public function edit(StoreSupplierRequest $supplier)
     {
-		$supplier->full_name			=$supplier->:$r->full_name;
-		$supplier->rfc					=is_null($r->rfc)?$supplier->:$r->rfc;
-		$supplier->email				=is_null($r->email)?$supplier->:$r->email;
-		$supplier->project_name			=is_null($r->project_name)?$supplier->:$r->project_name;
-		$supplier->logo_file_name		=is_null($r->logo_file_name)?$supplier->:$r->logo_file_name;
-		$supplier->address_id			=is_null($r->address_id)?$supplier->:$r->address_id;
+        //
     }
 
     /**
@@ -96,7 +83,10 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
+        // deltes a supplier
 		Supplier::findOrFail($id)->delete();
-		return Supplier::withTrashed()->find($id);
+
+        // returns all the active suppliers
+		return Supplier::all();
     }
 }
