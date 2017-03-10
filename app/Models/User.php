@@ -31,4 +31,7 @@ use Notifiable, SoftDeletes;
 	protected $dates = [
 		'deleted_at',
 	];
+
+    // crear scope, no enviar el user 1 o admin 
+    
 }

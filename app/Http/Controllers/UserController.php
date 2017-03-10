@@ -16,8 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->except(1);
-		return $users;
+        return User::all();
     }
 
     /**
@@ -87,8 +86,8 @@ class UserController extends Controller
 			abort(403);
 		}
 
-        $user->first_name = is_null($r->first_name)?$user->first_name:$r->first_name;
-        $user->last_name = is_null($r->last_name)?$user->last_name:$r->last_name;
+        $user->first_name = is_null($r->first_name) ? $user->first_name:$r->first_name;
+        $user->last_name = is_null($r->last_name) ? $user->last_name:$r->last_name;
         $user->email = is_null($r->email)?$user->email:$r->email;
 		$user->user_type = is_null($r->user_type)?$user->user_type:$r->user_type;
 
@@ -107,6 +106,6 @@ class UserController extends Controller
         if($id!==1){
 			User::findOrFail($id)->delete();
 		}
-		return User::withTrashed()->find($id);
+		return User::all();
     }
 }
