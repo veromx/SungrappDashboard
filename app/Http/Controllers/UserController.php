@@ -16,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+		// Regulars is a scope to exclude the id 1 (admin)
+        return User::regulars()->get();
     }
 
     /**
@@ -35,16 +36,19 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $r)
+    public function store(StoreUserRequest $request)
     {
-		$new_user = new User([	'first_name'	=>$r->first_name,
-								'last_name'		=>$r->last_name,
-								'email'			=>$r->email,
-								'password'		=>bcrypt($r->password),
-								'user_type'		=>$r->user_type,
-							]);
-		$new_user->save();
-		return $new_user;
+		// dd($request->all());
+
+		// We need to extract the password field from the request
+		// And place it in an array to encrypt it
+		$password= bcrypt($request->input['password']);
+		$input = $request->all();
+		$input['password']=$password;
+
+		// Creates a user based on the request fields
+		// At this point the request was validated already
+		return User::create($input);
 	}
 
     /**
@@ -53,12 +57,14 @@ class UserController extends Controller
      * @param  \Sungrapp\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        if($user->id===1){
+		// We cannot show the id 1, which is the admin
+        if($id===1){
 			abort(404);
 		}
-		return $user;
+		// We return all the other regular users with our regulars scope
+		return User::regulars()->find($id);
     }
 
     /**
@@ -79,19 +85,18 @@ class UserController extends Controller
      * @param  \Sungrapp\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $r, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
-		if($user->id===1){
-            // hay que hacer un return enviar un mensaje de error 
+		// we cannot update the id 1
+		if($id===1){
+            // TODO: return an error message
 			abort(403);
 		}
-
-        $user->first_name = is_null($r->first_name) ? $user->first_name:$r->first_name;
-        $user->last_name = is_null($r->last_name) ? $user->last_name:$r->last_name;
-        $user->email = is_null($r->email)?$user->email:$r->email;
-		$user->user_type = is_null($r->user_type)?$user->user_type:$r->user_type;
-
-		$user->save();
+		// We find or fail based on our supplied id
+		$user = User::regulars()->findOrFail($id);
+		// We update a discrete set of fields
+		$user->update($request->except(['id','password']));
+		// and return the updated user info
 		return $user;
     }
 
@@ -103,9 +108,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+		// We cannot delete the id 1, because it is for the admin user
         if($id!==1){
+			// and we find or fail the desired user by their id
 			User::findOrFail($id)->delete();
 		}
-		return User::all();
+		// then we return the list of the regular users with our regular users scope
+		return User::regulars()->get();
     }
 }

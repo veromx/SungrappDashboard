@@ -15,8 +15,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::all();
-		return $suppliers;
+		// Display the suppliers in the DB
+        return Supplier::all();
     }
 
     /**
@@ -37,8 +37,9 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        //
-        return Supplier::create($request->all()); 
+        // Create a supplier with the information on the request
+		// At this point it was entirely validated by the request and the values in the model
+        return Supplier::create($request->all());
     }
 
     /**
@@ -49,7 +50,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        // return $supplier;
+        return $supplier;
     }
 
     /**
@@ -58,9 +59,9 @@ class SupplierController extends Controller
      * @param  \Sungrapp\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(StoreSupplierRequest $supplier)
+    public function edit(Supplier $supplier)
     {
-        //
+
     }
 
     /**
@@ -70,9 +71,11 @@ class SupplierController extends Controller
      * @param  \Sungrapp\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(StoreSupplierRequest $request, Supplier $supplier)
     {
-
+		// Update with the request info
+		$supplier->update($request->all());
+		return $supplier;
     }
 
     /**

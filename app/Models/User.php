@@ -32,6 +32,9 @@ use Notifiable, SoftDeletes;
 		'deleted_at',
 	];
 
-    // crear scope, no enviar el user 1 o admin 
-    
+    // crear scope, no enviar el user 1 o admin
+	public function scopeRegulars($query){
+		return $query->where('id','!=',1);
+	}
+
 }
