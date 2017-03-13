@@ -1,13 +1,19 @@
+@extends('layouts.master')
+
+@section('content')
 <form id="login" method="POST" action="{{action('Auth\LoginController@login')}}">
 
-<div class='form-group'>
+	<div class="form-group row">
+		<label for="email">Email</label>
+		<input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
+	</div>
 
-	<label for="email">Email</label>
-	<input type="email" name="email" id="email" required>
+	<div class="form-group row">
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" class="form-control" required>
+	</div>
 
-	<label for="password">Password</label>
-	<input type="password" name="password" id="password" required>
+	<button type="submit" class="btn btn-primary">Login</button>
 
-	<button type="submit">Login</button>
-</div>
 </form>
+@endsection
