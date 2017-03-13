@@ -24,10 +24,11 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'	=>'required|max:60',
-			'email'			=>'required|email|unique:users|max:45',
-			'password'		=>'required|min:8',
-			'user_type'		=>'required|max:45'
+            'first_name'	=> 'required|max:60',
+			'email'			=> 'required|email|unique:users|max:45',
+			'password'		=> array(	'required','min:8','max:20',
+										'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/'),
+			'user_type'		=> 'required|max:45'
         ];
     }
 }

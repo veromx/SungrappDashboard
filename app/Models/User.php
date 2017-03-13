@@ -4,6 +4,7 @@ namespace Sungrapp\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable{
@@ -36,5 +37,31 @@ use Notifiable, SoftDeletes;
 	public function scopeRegulars($query){
 		return $query->where('id','!=',1);
 	}
+
+	public function getRememberToken(){
+		return null; // not supported
+	}
+
+	public function setRememberToken($value)
+	{
+		// not supported
+	}
+
+	public function getRememberTokenName()
+	{
+		return null; // not supported
+	}
+
+	/**
+	* Overrides the method to ignore the remember token.
+	*/
+	public function setAttribute($key, $value){
+		$isRememberTokenAttribute = $key == $this->getRememberTokenName();
+		if (!$isRememberTokenAttribute)
+		{
+		parent::setAttribute($key, $value);
+		}
+	}
+
 
 }
