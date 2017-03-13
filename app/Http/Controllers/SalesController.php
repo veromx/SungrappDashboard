@@ -16,7 +16,7 @@ class SalesController extends Controller
     public function index()
     {
 		// Display the sales 
-        return Sales::all();
+        return Sale::all();
     }
 
     /**
@@ -26,7 +26,7 @@ class SalesController extends Controller
      */
     public function create()
     {
-        // Some view to create
+        return view('sale');
     }
 
     /**

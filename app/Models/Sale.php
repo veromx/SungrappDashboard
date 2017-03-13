@@ -4,7 +4,7 @@ namespace Sungrapp\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sales extends Model
+class Sale extends Model
 {
     // don't allow to write attributes
     protected $guarded = ['id', 'created_at', 'updated_at']; 
