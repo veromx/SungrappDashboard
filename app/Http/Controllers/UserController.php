@@ -38,13 +38,10 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-		// dd($request->all());
-
-		// We need to extract the password field from the request
-		// And place it in an array to encrypt it
-		$password= bcrypt($request->input['password']);
+		// Encrypt password
 		$input = $request->all();
-		$input['password']=$password;
+		// TODO: implement Argon2 encryption
+		$input['password'] = bcrypt($input['password']);
 
 		// Creates a user based on the request fields
 		// At this point the request was validated already
@@ -59,12 +56,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-		// We cannot show the id 1, which is the admin
-        if($id===1){
-			abort(404);
-		}
+		// TODO: return an error if admin
 		// We return all the other regular users with our regulars scope
-		return User::regulars()->find($id);
+		return User::regulars()->findOrFail($id);
     }
 
     /**
@@ -95,7 +89,7 @@ class UserController extends Controller
 		// We find or fail based on our supplied id
 		$user = User::regulars()->findOrFail($id);
 		// We update a discrete set of fields
-		$user->update($request->except(['id','password']));
+		$user->update($request->except(['password']));
 		// and return the updated user info
 		return $user;
     }
@@ -108,12 +102,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-		// We cannot delete the id 1, because it is for the admin user
-        if($id!==1){
-			// and we find or fail the desired user by their id
-			User::findOrFail($id)->delete();
-		}
+		// we find or fail the desired user by their id
+		User::regulars()->findOrFail($id)->delete();
+
 		// then we return the list of the regular users with our regular users scope
 		return User::regulars()->get();
     }
+
 }

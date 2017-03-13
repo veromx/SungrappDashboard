@@ -23,7 +23,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        return [	// TODO: forbid password change
 			'first_name'	=>'max:60',
 			'email'			=>'email|unique:users|max:45',
 			'user_type'		=>'max:45'

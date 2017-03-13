@@ -12,6 +12,19 @@
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-	return "Laravel";
+	return "Sungrapp Dashboard API v1 ";
 });
+
+Route::auth();
+Route::get('logout', 'Auth\LoginController@logout');
+
+Route::group(['middleware'=>'auth'], function(){
+
+Route::resource('users','UserController');
+Route::resource('suppliers','SupplierController');
+
+});
+
+
+// Route::get('login', 'Auth\LoginController@login')->name('login');
+// Route::get('register', 'Auth\LoginController@register')->name('register');
