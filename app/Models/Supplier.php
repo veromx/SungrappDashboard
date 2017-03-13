@@ -19,4 +19,7 @@ public $timestamps = false;
         'full_name', 'email', 'rfc', 'project_name', 'logo_file_name', 'address_id',
     ];
 
+	// hidden attributes in arrays
+    protected $hidden = ['created_at', 'updated_at'];
+
 }
