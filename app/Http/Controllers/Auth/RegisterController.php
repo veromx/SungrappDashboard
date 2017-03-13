@@ -2,25 +2,16 @@
 
 namespace Sungrapp\Http\Controllers\Auth;
 
-use Sungrapp\User;
+use Sungrapp\Models\User;
+use Sungrapp\Http\Requests\StoreUserRequest;
 use Sungrapp\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Foundation\Auth\RedirectsUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
+    use RedirectsUsers;
 
     /**
      * Where to redirect users after registration.
@@ -29,43 +20,34 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+	public function showRegistrationForm(){
+        return view('auth.register');
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
+	public function register(StoreUserRequest $request){
+
+		$input = $request->all();
+		$input['password'] = bcrypt($input['password']);
+		event(new Registered($user = User::create($input)));
+
+		$this->guard()->login($user);
+
+		return $this->registered($request, $user)
+						?: redirect($this->redirectPath());
+	}
+
+	protected function guard()
+	{
+		return Auth::guard();
+	}
+
+	protected function registered(StoreUserRequest $request, $user)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        //
     }
+
 }
