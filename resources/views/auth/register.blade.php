@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<h1>Registro</h1>
+<h1>Registro de usuario</h1>
 <form id="register" method="POST" action="{{action('Auth\RegisterController@register')}}">
 
 	<div class="form-group row">
