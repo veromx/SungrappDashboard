@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+<h1>Iniciar sesión</h1>
 <form id="login" method="POST" action="{{action('Auth\LoginController@login')}}">
 
 	<div class="form-group row">

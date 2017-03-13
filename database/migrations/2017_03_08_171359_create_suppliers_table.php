@@ -21,6 +21,10 @@ class CreateSuppliersTable extends Migration {
 			$table->string('project_name', 45)->nullable();
 			$table->string('logo_file_name', 45)->nullable();
 			$table->integer('address_id')->unsigned()->nullable()->index('fk_customers_address_idx');
+			$table->string('phone_number', 25);
+			$table->boolean('potential_supplier')->default(0);
+			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

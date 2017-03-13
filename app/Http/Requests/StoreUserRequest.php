@@ -53,7 +53,7 @@ class StoreUserRequest extends FormRequest
 			}
 
 			// or check if the next 2 characters are the same
-			for($i=0; $i<strlen($password)-2; $i++)
+			for($i=0; $i<strlen($password)-2; $i++){
 				if($password[$i]  === $password[$i+1] AND $password[$i] === $password[$i+2]){
 					$repeated = true;
 					break;
