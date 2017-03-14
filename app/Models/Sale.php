@@ -11,4 +11,16 @@ class Sale extends Model
 
     // hidden attributes in arrays
     protected $hidden = ['created_at', 'updated_at'];
+
+    /*
+    * Relationships
+    */
+
+	/*
+	 * belongsTo Relationship :: ge the supplier and its purschase
+	 */
+	public function supplier(){
+		return $this->belognsTo('Sungrapp\Models\Supplier', 'id', 'supplier_id');
+	}
+
 }

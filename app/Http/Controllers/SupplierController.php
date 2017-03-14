@@ -15,8 +15,27 @@ class SupplierController extends Controller
      */
     public function index()
     {
-		// Display the suppliers in the DB
-        return Supplier::all();
+		$suppliers = []; 
+        switch ($request->exist('option')){
+            case 'messages': 
+                // get a potencial supplier and messages 
+                $suppliers = Supplier::with('messages')
+                    ->potencial_suppliers()
+                    ->get();
+                break;
+                
+            case 'potencial_suppliers': 
+                // get potencial suppliers 
+                $suppliers = Supplier::potencial_suppliers()->get();
+                break;
+
+            default:
+                // get all suppliers 
+                $suppliers = Supplier::only_suppliers()->get();
+                break; 
+        }
+
+		return $suppliers; 
     }
 
     /**

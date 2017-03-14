@@ -13,10 +13,16 @@ class SalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-		// Display the sales 
-        return Sale::all();
+        $sales = []; 
+        switch ($request->exist('option')){
+            default:
+                $sales = Sale::all();
+                break; 
+        }
+
+		return $sales; 
     }
 
     /**
@@ -26,7 +32,7 @@ class SalesController extends Controller
      */
     public function create()
     {
-        return view('sale');
+        //
     }
 
     /**
@@ -44,11 +50,13 @@ class SalesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Sungrapp\Models\Sale  $sale
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $sale)
+    public function show($id)
     {
+        $sale = Sale::with('supplier')->findOrFail($id); 
+
         return $sale;
     }
 

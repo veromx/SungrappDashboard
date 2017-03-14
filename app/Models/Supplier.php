@@ -22,4 +22,33 @@ public $timestamps = false;
 	// hidden attributes in arrays
     protected $hidden = ['created_at', 'updated_at'];
 
+	/*
+    * Scopes
+    */
+
+	/*
+	 * scope non suppliers
+	 */
+    public function scopePotencialSuppliers($query){
+        $query->where('potencial_supplier', '=', 1); 
+    }
+
+	/*
+	 * scope suppliers
+	 */
+    public function scopeOnlySuppliers($query){
+        $query->where('potencial_supplier', '=', 0); 
+    }
+
+    /*
+    * Relationships
+    */
+
+	/*
+	 * HasMany Relationship :: get all the messages of a supplier 
+	 */
+	public function messages(){
+		return $this->hasMany('Sungrapp\Models\Message', 'id', 'supplier_id');
+	}
+
 }

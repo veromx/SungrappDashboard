@@ -13,3 +13,7 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::resource('suppliers','SupplierController');
 
 });
+
+
+// todo change to the middleware
+Route::resource('sales', 'SalesController'); 
