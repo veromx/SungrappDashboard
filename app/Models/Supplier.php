@@ -4,6 +4,7 @@ namespace Sungrapp\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Sungrapp\Models\Message;
 
 class Supplier extends Model{
 
@@ -16,11 +17,14 @@ public $timestamps = false;
 	];
 
 	protected $fillable = [
-        'full_name', 'email', 'rfc', 'project_name', 'logo_file_name', 'address_id',
+        'full_name', 'email', 'rfc',
+		'project_name', 'logo_file_name',
+		'address_id', 'phone_number', 'potential_supplier'
     ];
 
 	// hidden attributes in arrays
     protected $hidden = ['created_at', 'updated_at'];
+
 
 	/*
     * Scopes
@@ -48,7 +52,7 @@ public $timestamps = false;
 	 * HasMany Relationship :: get all the messages of a supplier 
 	 */
 	public function messages(){
-		return $this->hasMany('Sungrapp\Models\Message', 'id', 'supplier_id');
+		return $this->hasMany(Message::class);
 	}
 
 }

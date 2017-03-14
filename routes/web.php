@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/', function () {
-	return view('home'); // "Sungrapp Dashboard API v1 ";
+	return view('welcome'); // "Sungrapp Dashboard API v1 ";
 });
 
 Route::auth();
@@ -9,11 +9,20 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::group(['middleware'=>'auth'], function(){
 
+	Route::get('admin', function(){
+		return view('admin');
+	})->name('admin');
+
 	Route::resource('users','UserController');
 	Route::resource('suppliers','SupplierController');
 
 });
 
 
-// todo change to the middleware
+// TODO change to the middleware
+
+// sales 
 Route::resource('sales', 'SalesController'); 
+
+// messages
+Route::resource('messages', 'MessageController',['only'=>['store']]);
