@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -12,14 +12,16 @@
 </head>
 <body>
 
-<div id="content" class="jumbotron">
+<div id="content" class="container">
+
 @if($errors->any())
-<ul>
 	@foreach($errors->all() as $err)
-		<li>{{$err}}</li>
+	<div class="alert alert-danger" role="alert">
+		<strong>{{$err}}</strong>
+	</div>
 	@endforeach
-</ul>
 @endif
+
 @yield('content')
 </div>
 

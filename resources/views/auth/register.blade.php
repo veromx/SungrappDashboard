@@ -2,6 +2,8 @@
 
 @section('content')
 <h1>Registro de usuario</h1>
+<p><a href="{{ action('Auth\LoginController@showLoginForm') }}">Iniciar sesión en el sistema</a></p>
+
 <form id="register" method="POST" action="{{action('Auth\RegisterController@register')}}">
 
 	<div class="form-group row">
@@ -34,7 +36,7 @@
 		<input type="text" name="user_type" id="user_type" class="form-control" value="{{ old('user_type') }}" required>
 	</div>
 
-	<button type="submit" class="btn btn-primary">Register</button>
+	<button type="submit" class="btn btn-primary">Registro</button>
 
 </form>
 
