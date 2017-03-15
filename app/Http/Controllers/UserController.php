@@ -24,8 +24,8 @@ class UserController extends Controller
 
             default:
                 // get the vertix users
-                User::regulars()->get();
-                break; 
+                $users = User::regulars()->get()->toArray();
+                return view('users.index', compact('users'));
         }
 
 		return $users; 

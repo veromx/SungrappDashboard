@@ -12,6 +12,7 @@
 </head>
 <body>
 
+@include('partials.navbar')
 <div id="content" class="container">
 
 @if($errors->any())
