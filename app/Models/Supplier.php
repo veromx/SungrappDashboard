@@ -5,6 +5,7 @@ namespace Sungrapp\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Sungrapp\Models\Message;
+use Sungrapp\Models\User;
 
 class Supplier extends Model{
 
@@ -16,13 +17,13 @@ public $timestamps = false;
 		'deleted_at',
 	];
 
-	// store attributes 
+	// store attributes
 	protected $fillable = [
-        'full_name', 
-		'email', 
+        'full_name',
+		'email',
 		'rfc',
-		'logo_file_name', 
-		'phone_number', 
+		'logo_file_name',
+		'phone_number',
 		'potential_supplier'
     ];
 
@@ -38,14 +39,14 @@ public $timestamps = false;
 	 * scope non suppliers
 	 */
     public function scopePotencialSuppliers($query){
-        $query->where('potencial_supplier', '=', 1); 
+        $query->where('potential_supplier', '=', 1);
     }
 
 	/*
 	 * scope suppliers
 	 */
     public function scopeOnlySuppliers($query){
-        $query->where('potencial_supplier', '=', 0); 
+        $query->where('potential_supplier', '=', 0);
     }
 
     /*
@@ -53,10 +54,15 @@ public $timestamps = false;
     */
 
 	/*
-	 * HasMany Relationship :: get all the messages of a supplier 
+	 * HasMany Relationship :: get all the messages of a supplier
 	 */
 	public function messages(){
 		return $this->hasMany(Message::class);
+	}
+
+	// also for users
+	public function users(){
+		return $this->hasMany(User::class);
 	}
 
 }

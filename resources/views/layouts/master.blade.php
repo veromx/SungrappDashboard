@@ -7,13 +7,19 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<!-- simple styles -->
+<style>
+.cursor-default{
+	cursor: default;
+}
+</style>
 
 <title>{{$title or "Sungrapp dashboard"}}</title>
 </head>
 <body>
 
 @include('partials.navbar')
-<div id="content" class="container">
+<div id="content" class="container mt-4">
 
 @if($errors->any())
 	@foreach($errors->all() as $err)

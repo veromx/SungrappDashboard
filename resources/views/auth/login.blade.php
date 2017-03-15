@@ -2,7 +2,6 @@
 
 @section('content')
 <h1>Iniciar sesión en el sistema</h1>
-<p><a href="{{ action('Auth\RegisterController@showRegistrationForm') }}">Registrarse como usuario</a></p>
 
 <form class="form-horizontal" id="login" method="POST" action="{{action('Auth\LoginController@login')}}">
 
