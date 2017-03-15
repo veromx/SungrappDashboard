@@ -16,7 +16,7 @@ class SupplierController extends Controller
     public function index(Request $request)
     {
 		$suppliers = []; 
-        switch ($request->exist('option')){
+        switch ($request->exists('option')){
             case 'messages': 
                 // get a potencial supplier and messages 
                 $suppliers = Supplier::with('messages')

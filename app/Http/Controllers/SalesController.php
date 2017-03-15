@@ -16,7 +16,7 @@ class SalesController extends Controller
     public function index(Request $request)
     {
         $sales = []; 
-        switch ($request->exist('option')){
+        switch ($request->exists('option')){
             case 'expired_accounts':
                 // get the expired accounts
                 $sales = Sale::get(); 

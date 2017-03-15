@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = []; 
-        switch ($request->exist('option')){
+        switch ($request->exists('option')){
             case 'by_supplier':
                 $users = User::where('supplier_id', $request->supplier)->get();
                 break;
@@ -51,11 +51,11 @@ class UserController extends Controller
     {
 		// Encrypt password
 		$input = $request->all();
+
 		// TODO: implement Argon2 encryption
 		$input['password'] = bcrypt($input['password']);
 
-		// Creates a user based on the request fields
-		// At this point the request was validated already
+		// Creates a user 
 		return User::create($input);
 	}
 
