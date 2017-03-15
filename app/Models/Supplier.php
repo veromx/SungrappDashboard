@@ -21,7 +21,6 @@ public $timestamps = false;
         'full_name', 
 		'email', 
 		'rfc',
-		'project_name', 
 		'logo_file_name', 
 		'phone_number', 
 		'potential_supplier'

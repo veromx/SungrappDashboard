@@ -27,7 +27,6 @@ class StoreSupplierRequest extends FormRequest
             'full_name'			=>'required|max:45',
 			'rfc'				=>'max:13',
 			'email'				=>'email|max:45',
-			'project_name'		=>'max:45',
 			'logo_file_name'	=>'max:45',
         ];
     }
