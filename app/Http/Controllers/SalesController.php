@@ -17,6 +17,13 @@ class SalesController extends Controller
     {
         $sales = []; 
         switch ($request->exist('option')){
+            case 'expired_accounts':
+                // get the expired accounts
+                $sales = Sale::get(); 
+
+
+                break; 
+
             default:
                 $sales = Sale::all();
                 break; 

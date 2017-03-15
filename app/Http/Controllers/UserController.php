@@ -14,10 +14,21 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-		// Regulars is a scope to exclude the id 1 (admin)
-        return User::regulars()->get();
+        $users = []; 
+        switch ($request->exist('option')){
+            case 'by_supplier':
+                $users = User::where('supplier_id', $request->supplier)->get();
+                break;
+
+            default:
+                // get the vertix users
+                User::regulars()->get();
+                break; 
+        }
+
+		return $users; 
     }
 
     /**

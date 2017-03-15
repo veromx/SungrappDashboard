@@ -3,6 +3,8 @@
 namespace Sungrapp\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Sungrapp\Models\Package; 
+use Sungrapp\Http\Requests\StorePackageRequest;
 
 class PackagesController extends Controller
 {
@@ -11,9 +13,8 @@ class PackagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-		// Display the Packages in the DB
         return Package::all();
     }
 
@@ -35,8 +36,7 @@ class PackagesController extends Controller
      */
     public function store(StorePackageRequest $request)
     {
-        // Create a Package with the information on the request
-		// At this point it was entirely validated by the request and the values in the model
+        // Create a Package 
         return Package::create($request->all());
     }
 
@@ -84,8 +84,8 @@ class PackagesController extends Controller
      */
     public function destroy($id)
     {
-        // deltes a Package
-		//Package::findOrFail($id)->delete();
+        // deletes a Package
+		Package::findOrFail($id)->delete();
 
         // returns all the active Packages
 		return Package::all();

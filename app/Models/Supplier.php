@@ -16,10 +16,15 @@ public $timestamps = false;
 		'deleted_at',
 	];
 
+	// store attributes 
 	protected $fillable = [
-        'full_name', 'email', 'rfc',
-		'project_name', 'logo_file_name',
-		'address_id', 'phone_number', 'potential_supplier'
+        'full_name', 
+		'email', 
+		'rfc',
+		'project_name', 
+		'logo_file_name', 
+		'phone_number', 
+		'potential_supplier'
     ];
 
 	// hidden attributes in arrays

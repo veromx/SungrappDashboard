@@ -13,7 +13,7 @@ class StorePackageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,9 @@ class StorePackageRequest extends FormRequest
         return [
             'name' => 'required|string',
             'active_time' => 'required|string',
-            'num_users' => 'required|numeric',
+            'time_period_type' => 'required|string',
+            'num_users' => 'numeric',
+            'num_customers' => 'numeric',
             'email' => 'required|boolean',
             'cost' => 'required|numeric'
         ];

@@ -26,3 +26,6 @@ Route::resource('sales', 'SalesController');
 
 // messages
 Route::resource('messages', 'MessageController',['only'=>['store']]);
+
+// packages
+Route::resource('packages', 'PackagesController');

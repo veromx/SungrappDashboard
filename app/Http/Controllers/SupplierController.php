@@ -13,7 +13,7 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 		$suppliers = []; 
         switch ($request->exist('option')){
@@ -56,8 +56,7 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        // Create a supplier with the information on the request
-		// At this point it was entirely validated by the request and the values in the model
+        // Create a supplier 
         return Supplier::create($request->all());
     }
 
@@ -105,7 +104,7 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        // deltes a supplier
+        // deletes a supplier
 		Supplier::findOrFail($id)->delete();
 
         // returns all the active suppliers
