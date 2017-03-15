@@ -15,14 +15,17 @@ Route::group(['middleware'=>'auth'], function(){
 
 	Route::resource('users','UserController');
 	Route::resource('suppliers','SupplierController');
+	Route::resource('packages', 'PackagesController');
 
 });
 
 
 // TODO change to the middleware
 
-// sales 
-Route::resource('sales', 'SalesController'); 
+// sales
+Route::resource('sales', 'SalesController');
+
+
 
 // messages
-Route::resource('messages', 'MessageController',['only'=>['store']]);
+Route::resource('messages', 'MessageController',['only'=>['index','store']]);

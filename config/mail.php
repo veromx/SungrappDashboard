@@ -56,9 +56,14 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'mailer@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Mailer'),
     ],
+
+	'to' => [
+		'address' => env('MAIL_TO_ADDRESS', 'admin@example.com'),
+		'name' => env('MAIL_TO_NAME', 'Admin'),
+	],
 
     /*
     |--------------------------------------------------------------------------
@@ -120,4 +125,5 @@ return [
         ],
     ],
 
+	'pretend' => false,
 ];

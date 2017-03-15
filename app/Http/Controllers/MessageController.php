@@ -5,6 +5,7 @@ namespace Sungrapp\Http\Controllers;
 use Sungrapp\Models\Message;
 use Illuminate\Http\Request;
 use Sungrapp\Http\Requests\StoreSupplierRequest;
+use Illuminate\Support\Facades\Mail;
 
 class MessageController extends Controller
 {
@@ -39,10 +40,20 @@ class MessageController extends Controller
         $supplier_controller = new SupplierController();
 		$supplier = $supplier_controller->store($request);
 
-		$message_info = ['supplier_id'=>$supplier->id, 'message'=>$request->message];
-		$message = Message::create($message_info);
+		$message = Message::create(['supplier_id'=>$supplier->id, 'message'=>$request->message]);
+
+		// store supplier name and content into an array
+		$message_email['supplier'] = $message->supplier->full_name;
+		$message_email['content'] = $message->message;
+		$message_email['sender'] = $request->email;
 
 		// TODO: Send email
+		Mail::send('partials.contact_message', $message_email, function($email){
+			// config/mail.php
+			// $email->from($mailer_address);
+			// $email->to('admin@example.com');
+			$email->subject('Nuevo mensaje de Landing Page');
+		});
 		return $message;
     }
 

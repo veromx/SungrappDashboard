@@ -16,8 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
+		$users = User::regulars()->get()->toArray();
 		// Regulars is a scope to exclude the id 1 (admin)
-        return User::regulars()->get();
+		return view('users.index', compact('users'));
+        // return User::regulars()->get();
     }
 
     /**
