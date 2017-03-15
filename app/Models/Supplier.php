@@ -5,6 +5,7 @@ namespace Sungrapp\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Sungrapp\Models\Message;
+use Sungrapp\Models\User;
 
 class Supplier extends Model{
 
@@ -38,7 +39,7 @@ public $timestamps = false;
 	 * scope non suppliers
 	 */
     public function scopePotencialSuppliers($query){
-        $query->where('potential_supplier', '=', 1); 
+        $query->where('potential_supplier', '=', 1);
     }
 
 	/*
@@ -57,6 +58,11 @@ public $timestamps = false;
 	 */
 	public function messages(){
 		return $this->hasMany(Message::class);
+	}
+
+	// also for users
+	public function users(){
+		return $this->hasMany(User::class);
 	}
 
 }

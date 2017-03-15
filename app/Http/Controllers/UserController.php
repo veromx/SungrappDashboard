@@ -3,6 +3,7 @@
 namespace Sungrapp\Http\Controllers;
 
 use Sungrapp\Models\User;
+use Sungrapp\Models\Supplier;
 use Illuminate\Http\Request;
 use Sungrapp\Http\Requests\StoreUserRequest;
 use Sungrapp\Http\Requests\UpdateUserRequest;
@@ -12,23 +13,37 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+	 * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $users = []; 
+		//start with empty array for users
+        $users = [];
+		$by_supplier = false;	// get param init as false
+		$supplier_id = $request->supplier;	// get param
         switch ($request->exists('option')){
             case 'by_supplier':
-                $users = User::where('supplier_id', $request->supplier)->get();
+				$by_supplier = true;
+				//make an array of suppliers
+				$suppliers = Supplier::onlySuppliers()->get()->toArray();
+				// get the non-admin users with supplier id
+				$users = User::regulars()->withSupplier()
+						->where('supplier_id', $supplier_id)->get()->toArray();
+				return $request->expectsJson()?	$users
+					:view('users.index', compact('users', 'suppliers', 'by_supplier', 'supplier_id'));
                 break;
 
             default:
                 // get the vertix users
                 $users = User::regulars()->get()->toArray();
-                return view('users.index', compact('users'));
+
+				// if request does not ask for json, give a view
+                return $request->expectsJson()? $users
+					:view('users.index', compact('users', 'by_supplier'));
         }
 
-		return $users; 
+		return $users;
     }
 
     /**
@@ -55,7 +70,7 @@ class UserController extends Controller
 		// TODO: implement Argon2 encryption
 		$input['password'] = bcrypt($input['password']);
 
-		// Creates a user 
+		// Creates a user
 		return User::create($input);
 	}
 

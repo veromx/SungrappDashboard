@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Supplier;
 
 class User extends Authenticatable{
 
@@ -36,6 +37,10 @@ use Notifiable, SoftDeletes;
     // crear scope, no enviar el user 1 o admin
 	public function scopeRegulars($query){
 		return $query->where('id','!=',1);
+	}
+
+	public function scopeWithSupplier($query){
+		return $query->where('supplier_id','!=',null);
 	}
 
 	public function getRememberToken(){

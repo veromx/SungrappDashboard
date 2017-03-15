@@ -14,8 +14,12 @@
 	<li class="nav-item">
 		<a class="flex-sm-fill text-sm-center nav-link text-white" href="{{ action('SalesController@index') }}">Ventas</a>
 	</li>
-	<li class="nav-item">
-		<a class="flex-sm-fill text-sm-center nav-link text-white" href="{{ action('UserController@index') }}">Usuarios</a>
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle flex-sm-fill text-sm-center text-white" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Usuarios</a>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="{{ action('UserController@index') }}">Usuarios Vertix</a>
+			<a class="dropdown-item" href="{{ action('UserController@index', ['option'=>'by_supplier']) }}">Por proveedor</a>
+		</div>
 	</li>
 	<li class="nav-item">
 		<a class="flex-sm-fill text-sm-center nav-link text-white" href="{{ action('PackagesController@index') }}">Paquetes</a>
