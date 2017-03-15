@@ -14,13 +14,12 @@ Route::group(['middleware'=>'auth'], function(){
 	})->name('admin');
 
 	Route::resource('users','UserController');
-	Route::resource('suppliers','SupplierController');
-	Route::resource('packages', 'PackagesController');
 
 });
 
 
 // TODO change to the middleware
+Route::resource('suppliers','SupplierController');
 
 // sales
 Route::resource('sales', 'SalesController');

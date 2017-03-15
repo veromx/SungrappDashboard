@@ -20,8 +20,6 @@ class SalesController extends Controller
             case 'expired_accounts':
                 // get the expired accounts
                 $sales = Sale::get(); 
-
-
                 break; 
 
             default:
@@ -63,7 +61,6 @@ class SalesController extends Controller
     public function show($id)
     {
         $sale = Sale::with('supplier')->findOrFail($id); 
-
         return $sale;
     }
 
@@ -101,7 +98,7 @@ class SalesController extends Controller
     public function destroy($id)
     {
         // deltes a sale
-		//Sale::findOrFail($id)->delete();
+		Sale::findOrFail($id)->delete();
 
         // returns all the active sales
 		return Sale::all();

@@ -1,23 +1,18 @@
 <?php
 
-namespace Sungrapp\Models;
+namespace Sungrapp;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Package extends Model{
-    
+class Project extends Model
+{
     use SoftDeletes;
 
     // store attributes 
 	protected $fillable = [
         'name', 
-        'active_time', 
-        'time_period_type',
-        'num_users', 
-        'num_customers',
-        'email', 
-        'cost', 
+        'supplier_id'
     ];
 
     // don't allow to write attributes
@@ -25,6 +20,6 @@ class Package extends Model{
 
     // hidden attributes in arrays
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
-    
 
+    
 }
