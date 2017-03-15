@@ -20,18 +20,18 @@ class SupplierController extends Controller
             case 'messages': 
                 // get a potencial supplier and messages 
                 $suppliers = Supplier::with('messages')
-                    ->potencial_suppliers()
+                    ->potencialSuppliers()
                     ->get();
                 break;
                 
             case 'potencial_suppliers': 
                 // get potencial suppliers 
-                $suppliers = Supplier::potencial_suppliers()->get();
+                $suppliers = Supplier::potencialSuppliers()->get();
                 break;
 
             default:
                 // get all suppliers 
-                $suppliers = Supplier::only_suppliers()->get();
+                $suppliers = Supplier::onlySuppliers()->get();
                 break; 
         }
 
