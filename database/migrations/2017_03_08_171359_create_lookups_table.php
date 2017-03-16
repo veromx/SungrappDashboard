@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateConfigTable extends Migration {
+class CreateLookupsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,12 @@ class CreateConfigTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('config', function(Blueprint $table)
+		Schema::create('lookups', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('value', 150)->nullable();
+			$table->string('type', 100)->nullable();
 			$table->string('key', 50)->nullable();
+			$table->string('value', 150)->nullable();
 		});
 	}
 
@@ -28,7 +29,7 @@ class CreateConfigTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('config');
+		Schema::dropIfExists('lookups');
 	}
 
 }

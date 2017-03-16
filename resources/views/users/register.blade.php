@@ -2,9 +2,8 @@
 
 @section('content')
 <h1>Registro de usuario</h1>
-<p><a href="{{ action('Auth\LoginController@showLoginForm') }}">Iniciar sesión en el sistema</a></p>
 
-<form id="register" method="POST" action="{{action('Auth\RegisterController@register')}}">
+<form id="register" method="POST" action="{{action('UserController@store')}}">
 
 	<div class="form-group row">
 		<label for="first_name">First name</label>

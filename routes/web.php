@@ -17,6 +17,8 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::resource('suppliers','SupplierController');
 	Route::resource('packages', 'PackagesController');
 
+	Route::resource('messages', 'MessageController', ['except'=>['create','store']]);
+
 });
 
 
@@ -29,4 +31,5 @@ Route::resource('sales', 'SalesController');
 Route::resource('packages', 'PackagesController');
 
 // messages
-Route::resource('messages', 'MessageController',['only'=>['index','store']]);
+Route::get('contact', 'MessageController@create');
+Route::resource('messages', 'MessageController', ['only'=>['store']]);

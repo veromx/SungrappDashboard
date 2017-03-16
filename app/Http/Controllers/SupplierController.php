@@ -15,27 +15,27 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-		$suppliers = []; 
+		$suppliers = [];
         switch ($request->exists('option')){
-            case 'messages': 
-                // get a potencial supplier and messages 
+            case 'messages':
+                // get a potencial supplier and messages
                 $suppliers = Supplier::with('messages')
-                    ->potencialSuppliers()
+                    ->potentialSuppliers()
                     ->get();
                 break;
-                
-            case 'potencial_suppliers': 
-                // get potencial suppliers 
-                $suppliers = Supplier::potencialSuppliers()->get();
+
+            case 'potencial_suppliers':
+                // get potencial suppliers
+                $suppliers = Supplier::potentialSuppliers()->get();
                 break;
 
             default:
-                // get all suppliers 
-                $suppliers = Supplier::onlySuppliers()->get();
-                break; 
+                // get all suppliers
+                $suppliers = Supplier::onlySuppliers()->get()->toArray();
+                break;
         }
 
-		return $suppliers; 
+		return view('suppliers.index',compact('suppliers'));
     }
 
     /**
@@ -56,7 +56,7 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        // Create a supplier 
+        // Create a supplier
         return Supplier::create($request->all());
     }
 

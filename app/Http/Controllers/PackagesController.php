@@ -3,7 +3,7 @@
 namespace Sungrapp\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Sungrapp\Models\Package; 
+use Sungrapp\Models\Package;
 use Sungrapp\Http\Requests\StorePackageRequest;
 
 class PackagesController extends Controller
@@ -15,7 +15,9 @@ class PackagesController extends Controller
      */
     public function index()
     {
-        return Package::all();
+        $packages = Package::all()->toArray();
+		
+		return view('packages.index', compact('packages'));
     }
 
     /**
@@ -36,7 +38,7 @@ class PackagesController extends Controller
      */
     public function store(StorePackageRequest $request)
     {
-        // Create a Package 
+        // Create a Package
         return Package::create($request->all());
     }
 

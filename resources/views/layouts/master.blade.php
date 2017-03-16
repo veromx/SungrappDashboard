@@ -29,6 +29,12 @@
 	@endforeach
 @endif
 
+@if(Session::has('info'))
+	<div class="alert alert-success" role="alert">
+		{{session('info')}}
+	</div>
+@endif
+
 @yield('content')
 </div>
 
