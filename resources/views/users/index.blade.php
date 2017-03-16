@@ -5,7 +5,14 @@
 <hr>
 
 @if(!$by_supplier)
-<h3>Usuarios Vertix</h3>
+<div class="row">
+	<div class="col-sm-10">
+		<h3>Usuarios Vertix</h3>
+	</div>
+	<div class="col-sm">
+		<a class="btn btn-primary" href="{{action('UserController@create')}}">Nuevo</a>
+	</div>
+</div>
 <div class="table-responsive">
 	<table class="table">
 	<thead class="thead-inverse">
@@ -30,7 +37,7 @@
 		</tr>
 	@endforeach
 	</tbody></table>
-	</div>
+</div>
 @endif
 
 @if($by_supplier)

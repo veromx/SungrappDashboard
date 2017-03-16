@@ -3,6 +3,7 @@
 namespace Sungrapp\Http\Controllers;
 
 use Sungrapp\Models\Message;
+use Sungrapp\Models\Supplier;
 use Illuminate\Http\Request;
 use Sungrapp\Http\Requests\StoreSupplierRequest;
 use Illuminate\Support\Facades\Mail;
@@ -14,9 +15,13 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+		$suppliers = Supplier::with('messages')
+			->potentialSuppliers()
+			->get();
+		$messages = Message::all()->toArray();
+        return view('messages.index', compact('suppliers'));
     }
 
     /**
@@ -26,7 +31,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        //
+        return view('partials.contact_form');
     }
 
     /**

@@ -38,7 +38,7 @@ public $timestamps = false;
 	/*
 	 * scope non suppliers
 	 */
-    public function scopePotencialSuppliers($query){
+    public function scopePotentialSuppliers($query){
         $query->where('potential_supplier', '=', 1);
     }
 

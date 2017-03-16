@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        // Some view to create
+        return view('users.register');
     }
 
     /**
@@ -71,7 +71,12 @@ class UserController extends Controller
 		$input['password'] = bcrypt($input['password']);
 
 		// Creates a user
-		return User::create($input);
+		$user = User::create($input);
+
+		$request->session()->flash('info', 'Creado el usuario ' . $user->email);
+		// returns the user details or a view
+		return $request->expectsJson()?	$user
+		: redirect()->route('admin');
 	}
 
     /**
