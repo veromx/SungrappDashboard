@@ -29,9 +29,15 @@
 	@endforeach
 @endif
 
-@if(Session::has('info'))
+@if(Session::has('success'))
 	<div class="alert alert-success" role="alert">
-		{{session('info')}}
+		{{session()->pull('success')}}
+	</div>
+@endif
+
+@if(Session::has('info'))
+	<div class="alert alert-info" role="alert">
+		{{session()->pull('info')}}
 	</div>
 @endif
 

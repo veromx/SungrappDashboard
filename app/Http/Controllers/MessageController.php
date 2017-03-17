@@ -17,11 +17,11 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-		$suppliers = Supplier::with('messages')
-			->potentialSuppliers()
-			->get();
-		$messages = Message::all()->toArray();
-        return view('messages.index', compact('suppliers'));
+		// $suppliers = Supplier::with('messages')
+		// 	->potentialSuppliers()
+		// 	->get();
+		$messages = Message::latest()->get();
+        return view('messages.index', compact('messages'));
     }
 
     /**
@@ -31,7 +31,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        return view('partials.contact_form');
+        return view('contact');
     }
 
     /**
@@ -59,7 +59,8 @@ class MessageController extends Controller
 			// $email->to('admin@example.com');
 			$email->subject('Nuevo mensaje de Landing Page');
 		});
-		return $message;
+		$request->session()->flash('success', 'Mensaje enviado correctamente');
+		return redirect()->route('landing');
     }
 
     /**

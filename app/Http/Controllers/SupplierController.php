@@ -16,24 +16,24 @@ class SupplierController extends Controller
     public function index(Request $request)
     {
 		$suppliers = [];
-        switch ($request->exists('option')){
-            case 'messages':
-                // get a potencial supplier and messages
-                $suppliers = Supplier::with('messages')
-                    ->potentialSuppliers()
-                    ->get();
-                break;
-
-            case 'potencial_suppliers':
-                // get potencial suppliers
-                $suppliers = Supplier::potentialSuppliers()->get();
-                break;
-
-            default:
+        // switch ($request->exists('option')){
+        //     case 'messages':
+        //         // get a potencial supplier and messages
+        //         $suppliers = Supplier::with('messages')
+        //             ->potentialSuppliers()
+        //             ->get();
+        //         break;
+		//
+        //     case 'potencial_suppliers':
+        //         // get potencial suppliers
+        //         $suppliers = Supplier::potentialSuppliers()->get();
+        //         break;
+		//
+        //     default:
                 // get all suppliers
-                $suppliers = Supplier::onlySuppliers()->get()->toArray();
-                break;
-        }
+                $suppliers = Supplier::with('project')->onlySuppliers()->get();
+                // break;
+        // }
 
 		return view('suppliers.index',compact('suppliers'));
     }
@@ -79,7 +79,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-
+		return view('suppliers.edit', compact('supplier'));
     }
 
     /**
@@ -93,7 +93,9 @@ class SupplierController extends Controller
     {
 		// Update with the request info
 		$supplier->update($request->all());
-		return $supplier;
+		$request->session()->flash('success', 'Proveedor modificado correctamente');
+		return $request->expectsJson() ? $supplier
+		: redirect()->action('SupplierController@index');
     }
 
     /**

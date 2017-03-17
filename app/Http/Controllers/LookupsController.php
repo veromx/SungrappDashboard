@@ -1,6 +1,9 @@
-<?php 
+<?php
+
+namespace Sungrapp\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Sungrapp\Models\Lookup;
 
 class LookupsController extends Controller {
 

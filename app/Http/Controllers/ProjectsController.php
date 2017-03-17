@@ -3,6 +3,7 @@
 namespace Sungrapp\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Sungrapp\Models\Project;
 
 class ProjectsController extends Controller
 {
@@ -34,7 +35,7 @@ class ProjectsController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        // Create a Project 
+        // Create a Project
         return Project::create($request->all());
     }
 

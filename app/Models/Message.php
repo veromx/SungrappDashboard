@@ -15,4 +15,10 @@ class Message extends Model
 	public function supplier(){
 		return $this->belongsTo(Supplier::class);
 	}
+
+	public function getCreatedAtAttribute($value){
+		$value= new \Carbon\Carbon($value);
+		$value->setLocale('es_MX.iso88591');
+		return $value;
+	}
 }

@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
 	return view('welcome'); // "Sungrapp Dashboard API v1 ";
-});
+})->name('landing');
 
 Route::auth();
 Route::get('logout', 'Auth\LoginController@logout');
@@ -32,3 +32,6 @@ Route::resource('packages', 'PackagesController');
 // messages
 Route::get('contact', 'MessageController@create');
 Route::resource('messages', 'MessageController', ['only'=>['store']]);
+
+Route::get('lookups/{type}', 'LookupsController@show');
+Route::get('lookups/{type}/{key}', 'LookupsController@getByTypeAndKey');

@@ -3,6 +3,7 @@
 namespace Sungrapp\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Sungrapp\Models\User;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [	// TODO: forbid password change
 			'first_name'	=>'max:60',
-			'email'			=>'email|unique:users|max:45',
+			'email'			=>'email|max:45|unique:users,email,'.$this->user,
 			'user_type'		=>'max:45'
         ];
     }

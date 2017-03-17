@@ -26,8 +26,7 @@ class CreateSalesTable extends Migration {
 			$table->smallInteger('amount')->nullable();
 			$table->float('unit_price', 10)->nullable();
 			$table->string('payment_method', 45)->nullable();
-			$table->dateTime('created_at')->nullable();
-			$table->dateTime('udpated_at')->nullable();
+			$table->timestamps();
 		});
 	}
 

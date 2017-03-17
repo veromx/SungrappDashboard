@@ -4,6 +4,7 @@ namespace Sungrapp\Http\Controllers;
 
 use Sungrapp\Models\User;
 use Sungrapp\Models\Supplier;
+use Sungrapp\Models\Lookup;
 use Illuminate\Http\Request;
 use Sungrapp\Http\Requests\StoreUserRequest;
 use Sungrapp\Http\Requests\UpdateUserRequest;
@@ -53,7 +54,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.register');
+		$user_type = Lookup::userType()->get()->toArray();
+        return view('users.register', compact('user_type'));
     }
 
     /**
@@ -73,7 +75,7 @@ class UserController extends Controller
 		// Creates a user
 		$user = User::create($input);
 
-		$request->session()->flash('info', 'Creado el usuario ' . $user->email);
+		$request->session()->flash('success', 'Creado el usuario ' . $user->email);
 		// returns the user details or a view
 		return $request->expectsJson()?	$user
 		: redirect()->route('admin');
@@ -100,7 +102,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //	Some view to edit
+        if($user->id===1){
+			abort(403);
+		}
+
+		$user_type = Lookup::userType()->get()->toArray();
+		return view('users.edit', compact('user', 'user_type'));
     }
 
     /**
@@ -122,7 +129,9 @@ class UserController extends Controller
 		// We update a discrete set of fields
 		$user->update($request->except(['password']));
 		// and return the updated user info
-		return $user;
+		$request->session()->flash('success', 'Datos de usuario actualizados');
+		return $request->expectsJson()? $user
+		: redirect()->action('UserController@index');
     }
 
     /**
@@ -131,13 +140,15 @@ class UserController extends Controller
      * @param  \Sungrapp\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
 		// we find or fail the desired user by their id
 		User::regulars()->findOrFail($id)->delete();
 
-		// then we return the list of the regular users with our regular users scope
-		return User::regulars()->get();
+		// then we return the list of the regular users
+		$request->session()->flash('info', 'Usuario ' . User::withTrashed()->find($id)->email . ' eliminado');
+		return $request->expectsJson() ? User::regulars()->get()
+		: redirect()->action('UserController@index');
     }
 
 }

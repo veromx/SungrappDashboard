@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Sungrapp\Models\Message;
 use Sungrapp\Models\User;
+use Sungrapp\Models\Project;
 
 class Supplier extends Model{
 
 use SoftDeletes;
 
-public $timestamps = false;
+public $timestamps = true;
 
 	protected $dates = [
 		'deleted_at',
@@ -63,6 +64,10 @@ public $timestamps = false;
 	// also for users
 	public function users(){
 		return $this->hasMany(User::class);
+	}
+
+	public function project(){
+		return $this->hasOne(Project::class);
 	}
 
 }
